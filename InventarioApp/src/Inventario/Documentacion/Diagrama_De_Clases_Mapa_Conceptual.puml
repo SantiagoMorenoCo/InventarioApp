@@ -1,0 +1,149 @@
+@startuml
+left to right direction
+
+class Usuario {
+  - id : int
+  - password : String
+  - nombre : String
+  - email : String
+  - rol : RolEnum
+}
+
+class Empleado {
+  - id : int
+  - nombre : String
+  - cargo : String
+  + agregarProducto(List<Producto>, Producto)
+  + eliminarProducto(List<Producto>, Producto)
+  + modificarProducto(Producto, String, double)
+  + registrarCliente(List<Cliente>, Cliente)
+}
+
+class Producto {
+  - id : int
+  - nombre : String
+  - descripcion : String
+  - precio : double
+  - precioCompra : float
+  - iva : float
+  - stock : int
+}
+
+class Cliente {
+  - id : int
+  - identificacion : Documento
+  - tipoIdentificacion : TipoIdentificacionEnum
+  - nombre : String
+  - apellido : String
+  - telefono : String
+  - correo : String
+}
+
+class Proveedor {
+  - id : int
+  - identificacion : String
+  - tipoIdentificacion : TipoIdentificacionEnum
+  - razonSocial : String
+  - telefono : String
+  - correo : String
+  - direccion : String
+}
+
+class Venta {
+  - id : int
+  - fecha : Date
+  - cliente : Cliente
+  - detalles : List<DetalleVenta>
+  - pagos : List<Pago>
+  + calcularTotal() : double
+}
+
+class DetalleVenta {
+  - producto : Producto
+  - cantidad : int
+  - venta : Venta
+  - descuento : float
+  - descripcion : String
+  + calcularSubtotal() : double
+}
+
+class Compra {
+  - id : int
+  - fecha : LocalDateTime
+  - proveedor : Proveedor
+  - detalles : List<DetalleCompra>
+  - pagos : List<Pago>
+  + calcularTotal() : double
+}
+
+class DetalleCompra {
+  - producto : Producto
+  - cantidad : int
+  - compra : Compra
+  - descuento : float
+  - descripcion : String
+  + calcularSubtotal() : double
+}
+
+class Pago {
+  - id : int
+  - monto : double
+  - metodoPago : String
+  - tipo : TipoPagoEnum
+  - fechaPago : LocalDateTime
+}
+
+class Factura {
+  - id : int
+  - fechaEmision : Date
+  - venta : Venta
+  + generarFactura() : void
+}
+
+class Inventario {
+  - productos : List<Producto>
+  + actualizarStock(Producto, int) : void
+  + eliminarProducto(Producto) : void
+  + buscarProducto(String) : Producto
+}
+
+' NUEVAS CLASES PARA PEDIDO
+class Pedido {
+  - id : int
+  - fecha : LocalDateTime
+  - cliente : Cliente
+  - empleado : Empleado
+  - detalles : List<DetallePedido>
+  - estado : String
+  + calcularTotal() : double
+}
+
+class DetallePedido {
+  - producto : Producto
+  - cantidad : int
+  - pedido : Pedido
+  - observaciones : String
+  + calcularSubtotal() : double
+}
+
+Usuario <|-- Empleado : es un 
+Usuario <|-- Cliente : es un 
+Usuario <|-- Proveedor : es un 
+Venta "*" -- "1" Cliente : Realizar
+Venta "*" -- "1" Empleado : Realizar
+Venta "*" -- "*" Producto : Contener
+(Venta,Producto).. DetalleVenta
+Compra "*" -- "1" Proveedor : Proveer
+Compra "*" -- "1" Empleado : Realizar
+Compra "*" -- "*" Producto : Contener
+(Compra,Producto).. DetalleCompra
+Venta "1" -- "*" Pago : Efectuar
+Venta "1" -- "1" Factura : Generar
+
+Pedido "*" -- "1" Cliente : Hacer
+Pedido "*" -- "1" Empleado : Atender
+Pedido "*" -- "*" Producto : Incluir
+(Pedido,Producto).. DetallePedido
+
+@enduml
+
