@@ -91,10 +91,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu6);
 
         jMenu7.setText("Inventario");
-        jMenuBar1.add(jMenu7);
 
         jMenu8.setText("Pedido");
-        jMenuBar1.add(jMenu8);
+        jMenu7.add(jMenu8);
+
+        jMenuBar1.add(jMenu7);
 
         setJMenuBar(jMenuBar1);
 
@@ -117,7 +118,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu1ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
- new Usuario().setVisible(true);
+ new Login().setVisible(true);
  dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
