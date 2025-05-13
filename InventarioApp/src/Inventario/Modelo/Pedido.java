@@ -58,7 +58,6 @@ public class Pedido {
         return totalDescuento;
     }
 
-    // Getters y Setters
     public int getId() {
         return id;
     }
