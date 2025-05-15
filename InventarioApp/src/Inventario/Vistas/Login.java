@@ -1,6 +1,4 @@
 package Inventario.Vistas;
-
-import inventario.Modelo.Usuario;
 import javax.swing.*;
 
 public class Login extends javax.swing.JFrame {

@@ -6,7 +6,11 @@ class Usuario {
   - password : String
   - nombre : String
   - email : String
-  - rol : RolEnum
+  - rol : String
+}
+
+class Documento {
+  - numero : String
 }
 
 class Empleado {
@@ -32,7 +36,7 @@ class Producto {
 class Cliente {
   - id : int
   - identificacion : Documento
-  - tipoIdentificacion : TipoIdentificacionEnum
+  - tipoIdentificacion : String
   - nombre : String
   - apellido : String
   - telefono : String
@@ -42,7 +46,7 @@ class Cliente {
 class Proveedor {
   - id : int
   - identificacion : String
-  - tipoIdentificacion : TipoIdentificacionEnum
+  - tipoIdentificacion : String
   - razonSocial : String
   - telefono : String
   - correo : String
@@ -89,7 +93,7 @@ class Pago {
   - id : int
   - monto : double
   - metodoPago : String
-  - tipo : TipoPagoEnum
+  - tipo : String
   - fechaPago : LocalDateTime
 }
 
@@ -102,6 +106,7 @@ class Factura {
 
 class Inventario {
   - productos : List<Producto>
+  + agregarProducto(Producto) : void
   + actualizarStock(Producto, int) : void
   + eliminarProducto(Producto) : void
   + buscarProducto(String) : Producto
@@ -126,24 +131,27 @@ class DetallePedido {
   + calcularSubtotal() : double
 }
 
-Usuario <|-- Empleado : es un 
-Usuario <|-- Cliente : es un 
-Usuario <|-- Proveedor : es un 
+Usuario <|-- Empleado : es un
+Usuario <|-- Cliente : es un
+Usuario <|-- Proveedor : es un
+Cliente "1" -- "1..*" Documento : tiene
 Venta "*" -- "1" Cliente : Realizar
 Venta "*" -- "1" Empleado : Realizar
 Venta "*" -- "*" Producto : Contener
-(Venta,Producto).. DetalleVenta
+(Venta,Producto) .. DetalleVenta
 Compra "*" -- "1" Proveedor : Proveer
 Compra "*" -- "1" Empleado : Realizar
 Compra "*" -- "*" Producto : Contener
-(Compra,Producto).. DetalleCompra
+(Compra,Producto) .. DetalleCompra
 Venta "1" -- "*" Pago : Efectuar
 Venta "1" -- "1" Factura : Generar
+Inventario "1" -- "*" Producto : Contiene
 
 Pedido "*" -- "1" Cliente : Hacer
 Pedido "*" -- "1" Empleado : Atender
 Pedido "*" -- "*" Producto : Incluir
-(Pedido,Producto).. DetallePedido
+(Pedido,Producto) .. DetallePedido
+
 
 @enduml
 
