@@ -141,7 +141,7 @@ public class Login extends javax.swing.JFrame {
     String email = txtUsuario.getText();
     String password = new String (txtPassword.getPassword());
     
-    if (email.equals("admin@correo.com") && password.equals("1234")) {
+    if (email.equals("admin") && password.equals("1234")) {
             JOptionPane.showMessageDialog(this, "¡Bienvenido!");
             
             new MenuPrincipal().setVisible(true);

@@ -7,6 +7,7 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
    
     public NuevoUsuario() {
         initComponents();
+        
     }
 
     @SuppressWarnings("unchecked")

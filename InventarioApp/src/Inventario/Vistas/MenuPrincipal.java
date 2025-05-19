@@ -119,9 +119,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
- NuevoUsuario nuevoUsuario = new NuevoUsuario();
- jDesktopPane_menu.add(nuevoUsuario);
- nuevoUsuario.setVisible(true);
+        NuevoUsuario nuevoUsuario = new NuevoUsuario();
+        jDesktopPane_menu.add(nuevoUsuario);
+        nuevoUsuario.setVisible(true);
+
+        Dimension desktopSize = jDesktopPane_menu.getSize();
+        Dimension frameSize = nuevoUsuario.getSize();
+        int x = (desktopSize.width - frameSize.width) / 2;
+        int y = (desktopSize.height - frameSize.height) / 2;
+        nuevoUsuario.setLocation(x, y);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
