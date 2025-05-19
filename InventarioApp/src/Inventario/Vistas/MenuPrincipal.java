@@ -1,13 +1,12 @@
 package Inventario.Vistas;
 
-
 import java.awt.Dimension;
 import javax.swing.JDesktopPane;
 
 public class MenuPrincipal extends javax.swing.JFrame {
+
     public static JDesktopPane jDesktopPane_menu;
 
-    
     public MenuPrincipal() {
         initComponents();
         this.setSize(new Dimension(1200, 700));
@@ -22,11 +21,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         int alto = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
         this.jDesktopPane_menu.setBounds(0, 0, ancho, (alto - 110));
         this.add(jDesktopPane_menu);
-         
 
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -140,7 +137,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         GestionarUsuario gestionarUsuario = new GestionarUsuario();
         jDesktopPane_menu.add(gestionarUsuario);
         gestionarUsuario.setVisible(true);
-        
+
         Dimension desktopSize = jDesktopPane_menu.getSize();
         Dimension frameSize = gestionarUsuario.getSize();
         int x = (desktopSize.width - frameSize.width) / 2;
@@ -151,9 +148,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-GestionarProducto gestionarProducto = new GestionarProducto();
-jDesktopPane_menu.add(gestionarProducto);
-gestionarProducto.setVisible(true);
+        GestionarProducto gestionarProducto = new GestionarProducto();
+        jDesktopPane_menu.add(gestionarProducto);
+        gestionarProducto.setVisible(true);
 
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
