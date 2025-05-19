@@ -131,15 +131,22 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-NuevoProducto nuevoProducto = new NuevoProducto();
-jDesktopPane_menu.add(nuevoProducto);
- nuevoProducto.setVisible(true);        // TODO add your handling code here:
+        NuevoProducto nuevoProducto = new NuevoProducto();
+        jDesktopPane_menu.add(nuevoProducto);
+        nuevoProducto.setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-GestionarUsuario gestionarUsuario = new GestionarUsuario();
-jDesktopPane_menu.add(gestionarUsuario);
-gestionarUsuario.setVisible(true);
+        GestionarUsuario gestionarUsuario = new GestionarUsuario();
+        jDesktopPane_menu.add(gestionarUsuario);
+        gestionarUsuario.setVisible(true);
+        
+        Dimension desktopSize = jDesktopPane_menu.getSize();
+        Dimension frameSize = gestionarUsuario.getSize();
+        int x = (desktopSize.width - frameSize.width) / 2;
+        int y = (desktopSize.height - frameSize.height) / 2;
+        gestionarUsuario.setLocation(x, y);
+
 
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
