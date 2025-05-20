@@ -101,7 +101,7 @@ public class Login extends javax.swing.JFrame {
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
 
-    String email = txtPassword.getText();
+    String email = txtUsuario1.getText();
     String password = new String (txtPassword.getPassword());
         if (email.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Campos vacios...!! Ingrese sus datos.");
