@@ -1,7 +1,9 @@
 package Inventario.Vistas;
 import Inventario.DAO.UsuarioDAO;
 import Inventario.SQLite.Conexion;
+import Inventario.SQLite.Request.LoginRequest;
 import Inventario.SQLite.Tablas.UsuarioTable;
+import inventario.Modelo.Usuario;
 import javax.swing.*;
 
 public class Login extends javax.swing.JFrame {
@@ -102,22 +104,18 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+        String usuario = txtUsuario1.getText();
+        String contraseña = new String(txtPassword.getPassword());
 
-    String email = txtUsuario1.getText();
-    String password = new String (txtPassword.getPassword());
-        if (email.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Campos vacios...!! Ingrese sus datos.");
-        
-        } else if (email.equals("admin") && password.equals("1234")) {
-            JOptionPane.showMessageDialog(this, "¡Bienvenido!");
-            
-            new MenuPrincipal().setVisible(true);
+        Usuario u = LoginRequest.verificarLogin(usuario, contraseña);
+
+        if (u != null) {
+            JOptionPane.showMessageDialog(this, "Bienvenido " + u.getNombre());
+            MenuPrincipal menu = new MenuPrincipal();
+            menu.setVisible(true);
             this.dispose();
-            Conexion.conectar();
-            
-           
         } else {
-        JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos");
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos");
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 

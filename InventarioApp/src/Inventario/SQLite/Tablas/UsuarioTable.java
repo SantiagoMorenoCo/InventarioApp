@@ -14,7 +14,8 @@ public class UsuarioTable {
                + "contraseña TEXT NOT NULL,"
                + "rol TEXT,"
                + "tipo_identificacion TEXT,"
-               + "cedula TEXT"
+               + "cedula TEXT,"
+               + "telefono TEXT"
                + ");";
 
     try (Connection conn = Conexion.conectar();
