@@ -1,28 +1,29 @@
 package inventario.Modelo;
 
 public class Producto {
- private int id;
- private String nombre;
- private String descripcion;
- private float precioVenta;
- private float precioCompra;
- private float iva;
- private int stock;
- 
- public Producto(int id, String nombre, String descripcion, float precio, float precioCompra,
-        float iva, int stock){
- this.id = id;
- this.nombre = nombre;
- this.descripcion = descripcion;
- this.precioVenta = precio;
- this.precioCompra = precioCompra;
- this.iva = iva;
- this.stock = stock;
- 
-   
- 
- }
+    private int id;
+    private String nombre;
+    private String descripcion;
+    private float precioVenta;
+    private float precioCompra;
+    private float iva;
+    private int stock;
 
+    public Producto() {
+        // Constructor vacío
+    }
+
+    public Producto(int id, String nombre, String descripcion, float precioVenta, float precioCompra, float iva, int stock) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precioVenta = precioVenta;
+        this.precioCompra = precioCompra;
+        this.iva = iva;
+        this.stock = stock;
+    }
+
+    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -54,9 +55,6 @@ public class Producto {
     public void setPrecioVenta(float precioVenta) {
         this.precioVenta = precioVenta;
     }
-
-   
-  
 
     public float getPrecioCompra() {
         return precioCompra;
