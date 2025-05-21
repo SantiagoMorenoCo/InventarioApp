@@ -10,10 +10,8 @@ import javax.swing.table.DefaultTableModel;
 public class GestionarProducto extends javax.swing.JInternalFrame {
 
     public GestionarProducto() {
-   initComponents();
-   listarProductos();
-
-   
+    initComponents();
+    listarProductos();
 
     }
     
