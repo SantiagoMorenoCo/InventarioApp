@@ -1,10 +1,30 @@
 package inventario.Modelo;
 
+import Inventario.Enums.Roles;
+import Inventario.Enums.TipoDeIdentificacion;
+
 public class Usuario {
- private int id;
- private String nombre;
- private String password;
- private String email;
+
+    private int id;
+    private String nombre;
+    private String apellido;
+    private Roles rol;
+    private String cedula;
+    private TipoDeIdentificacion tipoIdentificacion;
+    private String usuario;
+    private String contraseña;
+
+
+    public Usuario() {
+
+    }
+
+    public Usuario(int id, String apellido, String nombre, Roles rol) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.rol = rol;
+    }
 
     public int getId() {
         return id;
@@ -22,26 +42,51 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public String getPassword() {
-        return password;
+    public String getApellido() {
+        return apellido;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 
-    public String getEmail() {
-        return email;
+    public Roles getRol() {
+        return rol;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setRol(Roles rol) {
+        this.rol = rol;
     }
 
-public Usuario(int id, String password, String nombre, String email){
- this.id = id;
- this.nombre = nombre;
- this.password = password;
- this.email = email;
- }
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+
+    public TipoDeIdentificacion getTipoIdentificacion() {
+        return tipoIdentificacion;
+    }
+
+    public void setTipoIdentificacion(TipoDeIdentificacion tipoIdentificacion) {
+        this.tipoIdentificacion = tipoIdentificacion;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
 }

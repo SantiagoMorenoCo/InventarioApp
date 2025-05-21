@@ -1,5 +1,7 @@
 package Inventario.Vistas;
+import Inventario.DAO.UsuarioDAO;
 import Inventario.SQLite.Conexion;
+import Inventario.SQLite.Tablas.UsuarioTable;
 import javax.swing.*;
 
 public class Login extends javax.swing.JFrame {
@@ -8,7 +10,7 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
     }
-
+    
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -147,10 +149,11 @@ public class Login extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
+         System.out.println("Arrancando");
+         Conexion.conectar();
+         UsuarioTable.crearTablaUsuarios();
+         new UsuarioDAO().CrearUsuariosLocales();
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
