@@ -2,7 +2,7 @@
 package Inventario.Enums;
 
 
-public enum CargoAdministradorEnum {
+public enum Roles {
  VENDEDOR,
  SUPERVISOR,
  ASISTENTE,
