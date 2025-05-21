@@ -31,7 +31,7 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
         lbApellido = new javax.swing.JLabel();
         cmbTipoIdentificacion = new javax.swing.JComboBox<>();
         txtUsuario = new javax.swing.JTextField();
-        txtxTelefono = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
         txtApellido = new javax.swing.JTextField();
         lbNombre = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -86,7 +86,7 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
 
         txtUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        txtxTelefono.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtTelefono.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         txtApellido.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
@@ -103,7 +103,7 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
         lbUsuario.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbUsuario.setText("Usuario:");
 
-        cmbRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar...", "VENDEDOR", "SUPERVISOR", "ASISTENTE", "Gerente  " }));
+        cmbRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar...", "ADMINISTRADOR", "VENDEDOR", "OTRO", " " }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -141,7 +141,7 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
                             .addComponent(jLabel9))
                         .addGap(6, 6, 6)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtxTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(cmbRol, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(cmbTipoIdentificacion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -183,7 +183,7 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
                     .addComponent(lbPassword)
                     .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbTelefono)
-                    .addComponent(txtxTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
 
@@ -258,6 +258,7 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
                 u.setRol(Roles.valueOf(cmbRol.getSelectedItem().toString()));
                 u.setTipoIdentificacion(TipoDeIdentificacion.valueOf(cmbTipoIdentificacion.getSelectedItem().toString()));
                 u.setCedula(txtCedula.getText());
+                u.setTelefono(txtTelefono.getText());
 
                 UsuarioDAO dao = new UsuarioDAO();
                 boolean exito = dao.guardarUsuario(u);
@@ -290,7 +291,7 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtCedula;
     private javax.swing.JPasswordField txtContraseña;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtUsuario;
-    private javax.swing.JTextField txtxTelefono;
     // End of variables declaration//GEN-END:variables
 }

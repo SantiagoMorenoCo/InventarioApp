@@ -11,6 +11,7 @@ public class Usuario {
     private Roles rol;
     private String cedula;
     private TipoDeIdentificacion tipoIdentificacion;
+    private String telefono;
     private String usuario;
     private String contraseña;
 
@@ -19,11 +20,14 @@ public class Usuario {
 
     }
 
-    public Usuario(int id, String apellido, String nombre, Roles rol) {
+    public Usuario(int id, String nombre, String apellido, Roles rol, String cedula, TipoDeIdentificacion tipoIdentificacion, String telefono ) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.rol = rol;
+        this.cedula = cedula;
+        this.tipoIdentificacion = tipoIdentificacion;
+        this.telefono = telefono;
     }
 
     public int getId() {
@@ -74,6 +78,14 @@ public class Usuario {
         this.tipoIdentificacion = tipoIdentificacion;
     }
 
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+    
     public String getUsuario() {
         return usuario;
     }
