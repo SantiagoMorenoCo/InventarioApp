@@ -115,7 +115,7 @@ public class GestionarUsuario extends javax.swing.JInternalFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 810, -1));
 
-        btnActualizar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        btnActualizar.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         btnActualizar.setText("Actualizar");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,7 +123,7 @@ public class GestionarUsuario extends javax.swing.JInternalFrame {
             }
         });
 
-        btnEliminar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        btnEliminar.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,7 +131,7 @@ public class GestionarUsuario extends javax.swing.JInternalFrame {
             }
         });
 
-        btnModificar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        btnModificar.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         btnModificar.setText("Modificar");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -203,7 +203,7 @@ public class GestionarUsuario extends javax.swing.JInternalFrame {
         lbTipoDocumento.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbTipoDocumento.setText("Tipo Doc:");
 
-        btnLimpiarCampos.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        btnLimpiarCampos.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         btnLimpiarCampos.setText("Limpiar Campos");
         btnLimpiarCampos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
