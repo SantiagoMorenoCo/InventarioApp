@@ -1,17 +1,15 @@
 package Inventario.Vistas;
+
 import javax.swing.JOptionPane;
 import Inventario.DAO.ProductoDAO;
 import inventario.Modelo.Producto;
 
-
 public class NuevoProducto extends javax.swing.JInternalFrame {
 
-   
     public NuevoProducto() {
         initComponents();
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -36,8 +34,6 @@ public class NuevoProducto extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-
-        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Nuevo Producto");
@@ -168,49 +164,49 @@ public class NuevoProducto extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-  try {
-        String nombre = txt_nombre.getText();
-        String descripcion = txt_nombre1.getText();
-        float precioVenta = Float.parseFloat(txt_PrecioVenta.getText());
-        int stock = Integer.parseInt(txt_nombre2.getText());
+        try {
+            String nombre = txt_nombre.getText();
+            String descripcion = txt_nombre1.getText();
+            float precioVenta = Float.parseFloat(txt_PrecioVenta.getText());
+            int stock = Integer.parseInt(txt_nombre2.getText());
 
-        // Obtener IVA del combo
-        String ivaSeleccionado = (String) jComboBox2.getSelectedItem();
-        float iva = 0;
-        if (ivaSeleccionado.equals("15%")) {
-            iva = 0.15f;
-        } else if (ivaSeleccionado.equals("19%")) {
-            iva = 0.19f;
+            // Obtener IVA del combo
+            String ivaSeleccionado = (String) jComboBox2.getSelectedItem();
+            float iva = 0;
+            if (ivaSeleccionado.equals("15%")) {
+                iva = 0.15f;
+            } else if (ivaSeleccionado.equals("19%")) {
+                iva = 0.19f;
+            }
+
+            // Crear objeto Producto (usa 0 como id inicial si es autoincremental)
+            Producto producto = new Producto(0, nombre, descripcion, precioVenta, 0f, iva, stock);
+
+            // Guardar con DAO
+            ProductoDAO dao = new ProductoDAO();
+            boolean guardado = dao.guardarProducto(producto);
+
+            if (guardado) {
+                JOptionPane.showMessageDialog(this, "Producto guardado correctamente.");
+                limpiarCampos(); // Si no lo tienes, podemos crearlo.
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al guardar el producto.");
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingresa valores numéricos válidos.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error inesperado: " + e.getMessage());
         }
-
-        // Crear objeto Producto (usa 0 como id inicial si es autoincremental)
-        Producto producto = new Producto(0, nombre, descripcion, precioVenta, 0f, iva, stock);
-
-        // Guardar con DAO
-        ProductoDAO dao = new ProductoDAO();
-        boolean guardado = dao.guardarProducto(producto);
-
-        if (guardado) {
-            JOptionPane.showMessageDialog(this, "Producto guardado correctamente.");
-            limpiarCampos(); // Si no lo tienes, podemos crearlo.
-        } else {
-            JOptionPane.showMessageDialog(this, "Error al guardar el producto.");
-        }
-
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Por favor, ingresa valores numéricos válidos.");
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Error inesperado: " + e.getMessage());
-    }
     }//GEN-LAST:event_jButton1ActionPerformed
-private void limpiarCampos() {
-    txt_nombre.setText("");
-    txt_nombre1.setText("");
-    txt_nombre2.setText("");
-    txt_PrecioVenta.setText("");
-    jComboBox1.setSelectedIndex(0);
-    jComboBox2.setSelectedIndex(0);
-}
+    private void limpiarCampos() {
+        txt_nombre.setText("");
+        txt_nombre1.setText("");
+        txt_nombre2.setText("");
+        txt_PrecioVenta.setText("");
+        jComboBox1.setSelectedIndex(0);
+        jComboBox2.setSelectedIndex(0);
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -231,4 +227,3 @@ private void limpiarCampos() {
     private javax.swing.JTextField txt_nombre2;
     // End of variables declaration//GEN-END:variables
 }
-

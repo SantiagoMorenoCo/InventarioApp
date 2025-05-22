@@ -3,6 +3,7 @@ package Inventario.DAO;
 import Inventario.SQLite.Conexion;
 import inventario.Modelo.Usuario;
 import java.sql.*;
+import javax.swing.JOptionPane;
 
 public class UsuarioDAO {
 
@@ -16,7 +17,7 @@ public class UsuarioDAO {
             {"admin", "admin", "admin", "1234", "ADMINISTRADOR", "CC", "10101010101", "3002465483"},
             {"Santiago", "Moreno", "smoreno", "1234", "VENDEDOR", "CC", "1102203304", "3135990515"},
             {"Antony", "Esteban", "aesteban", "1234", "VENDEDOR", "CC", "1122334455", "3017854328"},
-            {"Prueba", "Prueba", "prueba", "1234", "OTRO", "PASAPORTE", "6987654321", "3219874509"}
+            {"Prueba", "Prueba", "prueba", "1234", "OTRO", "TI", "6987654321", "3219874509"}
         };
 
         try (Connection conn = Conexion.conectar()) {
@@ -70,9 +71,34 @@ public class UsuarioDAO {
             pstmt.setInt(1, id);
             return pstmt.executeUpdate() > 0;
         } catch (Exception e) {
-            System.out.println("Error al eliminar usuario: " + e.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al eliminar usuario: " + e.getMessage());
             return false;
         }
     }
+    
+    public boolean modificarUsuario(Usuario usuario) {
+    String sql = "UPDATE usuario SET nombre=?, apellido=?, telefono=?, rol=?, cedula=?, tipo_identificacion=?, usuario=? WHERE id=?";
 
+    try (Connection conn = Conexion.conectar();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+        pstmt.setString(1, usuario.getNombre());
+        pstmt.setString(2, usuario.getApellido());
+        pstmt.setString(3, usuario.getTelefono());
+        pstmt.setString(4, usuario.getRol().name());
+        pstmt.setString(5, usuario.getCedula());
+        pstmt.setString(6, usuario.getTipoIdentificacion().name());
+        pstmt.setString(7, usuario.getUsuario());
+        pstmt.setInt(8, usuario.getId());
+
+        pstmt.executeUpdate();
+        return true;
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error al modificar usuario: " + e.getMessage());
+        return false;
+    }
+}
+    
+    
 }

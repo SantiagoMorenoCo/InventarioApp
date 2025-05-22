@@ -130,7 +130,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         NuevoProducto nuevoProducto = new NuevoProducto();
         jDesktopPane_menu.add(nuevoProducto);
-        nuevoProducto.setVisible(true);        // TODO add your handling code here:
+        nuevoProducto.setVisible(true); 
+        
+        Dimension desktopSize = jDesktopPane_menu.getSize();
+        Dimension frameSize = nuevoProducto.getSize();
+        int x = (desktopSize.width - frameSize.width) / 2;
+        int y = (desktopSize.height - frameSize.height) / 2;
+        nuevoProducto.setLocation(x, y);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
@@ -151,6 +157,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         GestionarProducto gestionarProducto = new GestionarProducto();
         jDesktopPane_menu.add(gestionarProducto);
         gestionarProducto.setVisible(true);
+        
+        Dimension desktopSize = jDesktopPane_menu.getSize();
+        Dimension frameSize = gestionarProducto.getSize();
+        int x = (desktopSize.width - frameSize.width) / 2;
+        int y = (desktopSize.height - frameSize.height) / 2;
+        gestionarProducto.setLocation(x, y);
 
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
