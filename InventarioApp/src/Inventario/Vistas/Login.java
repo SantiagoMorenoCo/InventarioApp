@@ -2,6 +2,7 @@ package Inventario.Vistas;
 import Inventario.DAO.UsuarioDAO;
 import Inventario.SQLite.Conexion;
 import Inventario.SQLite.Request.LoginRequest;
+import Inventario.SQLite.Tablas.ProductoTable;
 import Inventario.SQLite.Tablas.UsuarioTable;
 import inventario.Modelo.Usuario;
 import javax.swing.*;
@@ -108,8 +109,13 @@ public class Login extends javax.swing.JFrame {
         String contraseña = new String(txtPassword.getPassword());
 
         Usuario u = LoginRequest.verificarLogin(usuario, contraseña);
-
-        if (u != null) {
+        
+        if (usuario.isEmpty() || contraseña.isEmpty()){
+            
+            JOptionPane.showMessageDialog(this, "Campos vacios...! Por favor ingrese todos los datos");
+        }
+           
+        else if (u != null) {
             JOptionPane.showMessageDialog(this, "Bienvenido " + u.getNombre());
             MenuPrincipal menu = new MenuPrincipal();
             menu.setVisible(true);
@@ -150,6 +156,7 @@ public class Login extends javax.swing.JFrame {
          System.out.println("Arrancando");
          Conexion.conectar();
          UsuarioTable.crearTablaUsuarios();
+         ProductoTable.crearTablaProductos();
          new UsuarioDAO().CrearUsuariosLocales();
         
         /* Create and display the form */
