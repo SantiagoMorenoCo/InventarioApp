@@ -220,7 +220,6 @@ public class GestionInventario extends javax.swing.JInternalFrame {
 
         try {
             Connection con = Conexion.conectar();
-            // Changed the SQL statement to DELETE FROM producto WHERE id = ?
             PreparedStatement ps = con.prepareStatement("DELETE FROM producto WHERE id = ?");
             ps.setInt(1, id); // Set the ID for deletion
             ps.executeUpdate();
@@ -229,7 +228,6 @@ public class GestionInventario extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al eliminar: " + ex.getMessage());
         }
-        // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -249,7 +247,6 @@ public class GestionInventario extends javax.swing.JInternalFrame {
     modelo.addColumn("IVA");
     modelo.addColumn("Stock");
 
-    // Corrected SQL query to include a WHERE clause and a parameter placeholder
     String consulta = "SELECT * FROM producto WHERE nombre LIKE ? OR descripcion LIKE ?"; // Changed 'productos' to 'producto' and added WHERE clause
 
     try {
@@ -278,7 +275,6 @@ public class GestionInventario extends javax.swing.JInternalFrame {
     }
 
     
-            // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
