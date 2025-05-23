@@ -1,33 +1,29 @@
 package inventario.Modelo;
 
 public class Proveedor {
- private int id;
+
  private String identificacion;
  private String tipoIdentificacion;
  private String razonSocial;
  private String telefono;
  private String correo;
  private String direccion;
+ private String nombre;
  
  
  public Proveedor(String identificacion, String tipoIdentificacion, String razonSocial,
-   String telefono, String correo, String direccion){
- this.id = id;
+   String telefono, String correo, String direccion, String nombre){
+ 
  this.identificacion = identificacion;
  this.tipoIdentificacion = tipoIdentificacion;
  this.razonSocial = razonSocial;
  this.telefono = telefono;
  this.correo = correo;
  this.direccion = direccion;
+ this.nombre = nombre;
  }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getIdentificacion() {
         return identificacion;
@@ -75,5 +71,13 @@ public class Proveedor {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+    
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String direccion) {
+        this.nombre = direccion;
     }
 }

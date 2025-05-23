@@ -20,7 +20,7 @@ public class Usuario {
 
     }
 
-    public Usuario(int id, String nombre, String apellido, Roles rol, String cedula, TipoDeIdentificacion tipoIdentificacion, String telefono ) {
+    public Usuario(int id, String nombre, String apellido, Roles rol, String cedula, TipoDeIdentificacion tipoIdentificacion, String telefono, String usuario, String contraseña ) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -28,6 +28,8 @@ public class Usuario {
         this.cedula = cedula;
         this.tipoIdentificacion = tipoIdentificacion;
         this.telefono = telefono;
+        this.usuario = usuario;
+        this.contraseña = contraseña;
     }
 
     public int getId() {

@@ -31,6 +31,7 @@ public class Login extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         txtUsuario1 = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
+        btnRegistrarse = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -48,7 +49,6 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 195, 15));
-        setPreferredSize(new java.awt.Dimension(360, 480));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(82, 95, 112));
@@ -74,7 +74,7 @@ public class Login extends javax.swing.JFrame {
                 btnIngresarActionPerformed(evt);
             }
         });
-        jPanel3.add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 140, 30));
+        jPanel3.add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 120, 30));
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
         jPanel3.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 170, 20));
@@ -94,6 +94,15 @@ public class Login extends javax.swing.JFrame {
 
         txtPassword.setBorder(null);
         jPanel3.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 170, 20));
+
+        btnRegistrarse.setFont(new java.awt.Font("Roboto Black", 0, 12)); // NOI18N
+        btnRegistrarse.setText("Registrarse");
+        btnRegistrarse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarseActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnRegistrarse, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 120, 30));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 320, 220));
 
@@ -130,6 +139,12 @@ public class Login extends javax.swing.JFrame {
     private void txtUsuario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuario1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsuario1ActionPerformed
+
+    private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
+        NuevoUsuario nuevoUsuario = new NuevoUsuario();
+            nuevoUsuario.setVisible(true);
+            this.dispose();
+    }//GEN-LAST:event_btnRegistrarseActionPerformed
 
   
     public static void main(String args[]) {
@@ -171,6 +186,7 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresar;
+    private javax.swing.JButton btnRegistrarse;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
