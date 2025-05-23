@@ -2,18 +2,45 @@ package Inventario.Vistas;
 
 
 
+import Inventario.DAO.ProveedorDAO;
+import inventario.Modelo.Proveedor;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class Proveedor extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form Proveedor
-     */
-    public Proveedor() {
-        initComponents();
+public class GestionProveedor extends javax.swing.JInternalFrame {
+
+    
+    public GestionProveedor() {
+    initComponents();
+    cargarProveedores();
+    cbTipoIdentificacion.setModel(new DefaultComboBoxModel<>(new String[] {
+        "Cédula", "RUC", "Pasaporte", "Otro"}));
     }
+    
+    private void cargarProveedores(){
+        ProveedorDAO dao = new ProveedorDAO();
+    List<Proveedor> lista = dao.obtenerTodos();
+
+    DefaultTableModel modelo = (DefaultTableModel) tblProveedor.getModel();
+    modelo.setRowCount(0); // limpiar tabla
+
+    for (Proveedor p : lista) {
+        modelo.addRow(new Object[] {
+            p.getNombre(),
+            p.getTipoIdentificacion(),
+            p.getIdentificacion(),
+            p.getRazonSocial(),
+            p.getTelefono(),
+            p.getCorreo(),
+            p.getDireccion()
+        });
+    }
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -298,60 +325,59 @@ public class Proveedor extends javax.swing.JInternalFrame {
         String telefono = txtTelefono.getText();
         String correo = txtCorreo.getText();
         String direccion = txtDireccion.getText();
+        String nombre = txtNombre.getText();
 
     if (identificacion.isEmpty() || razonSocial.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Identificación y Razón Social son obligatorias.");
         return;
     }
-         DefaultTableModel modeloTabla = (DefaultTableModel) tblProveedor.getModel();
+    
+    if (!correo.contains("@") || !correo.matches(".+@.+\\..+")) {
+        JOptionPane.showMessageDialog(this, "Por favor ingrese un correo válido.");
+        return;
+    }
 
-    // Agregar nueva fila con los datos
+    if (!telefono.matches("\\d+")) {
+        JOptionPane.showMessageDialog(this, "El teléfono solo debe contener números.");
+        return;
+    }
+    
+    if (!telefono.matches("\\d{7,10}")) {
+        JOptionPane.showMessageDialog(this, "El teléfono debe contener entre 7 y 10 dígitos.");
+        return;
+    }
+    
+    inventario.Modelo.Proveedor proveedor = new inventario.Modelo.Proveedor(
+            txtNombre.getText(),
+            txtIdentificacion.getText(),
+            cbTipoIdentificacion.getSelectedItem().toString(),
+            txtRazonSocial.getText(),
+            txtTelefono.getText(),
+            txtCorreo.getText(),
+            txtDireccion.getText()
+    
+        );
+        
+    ProveedorDAO dao = new ProveedorDAO();
+        
+    if (dao.insertarProveedor(proveedor)) {
+            
+        JOptionPane.showMessageDialog(null, "Proveedor guardado en la base de datos.");
+        
+    } else {
+    
+        JOptionPane.showMessageDialog(null, "Error al guardar proveedor en la base de datos.");
+    
+    }
+    
+        DefaultTableModel modeloTabla = (DefaultTableModel) tblProveedor.getModel();
         modeloTabla.addRow(new Object[]{
-        identificacion, tipoID, razonSocial, telefono, correo, direccion
-    });
+        nombre, razonSocial, telefono, identificacion, direccion, tipoID, correo});
+        limpiarCampos();
         
     
         
     }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        int filaSeleccionada = tblProveedor.getSelectedRow();
-
-    if (filaSeleccionada >= 0) {
-        DefaultTableModel modeloTabla = (DefaultTableModel) tblProveedor.getModel();
-        modeloTabla.removeRow(filaSeleccionada);
-        JOptionPane.showMessageDialog(null, "Proveedor eliminado.");
-    } else {
-        JOptionPane.showMessageDialog(null, "Selecciona una fila para eliminar.");
-    }
-    }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        String idBuscado = txtIdentificacion.getText();
-        boolean encontrado = false;
-        
-        DefaultTableModel modeloTabla = (DefaultTableModel) tblProveedor.getModel();
-    for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-        
-        String idEnTabla = modeloTabla.getValueAt(i, 0).toString();
-        
-        if (idEnTabla.equals(idBuscado)) { // 0 es identificacion
-            tblProveedor.setRowSelectionInterval(i, i); // esto seleccciona una fila
-            tblProveedor.scrollRectToVisible(tblProveedor.getCellRect(i, 0, true));
-            encontrado = true;
-            break;
-        }
-    }
-
-    if (!encontrado) {
-        JOptionPane.showMessageDialog(null, "Proveedor no encontrado.");
-    }
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
-    private void cbTipoIdentificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoIdentificacionActionPerformed
-        String[] opciones = {"Cédula", "RUC", "Pasaporte", "Otro"};
-        cbTipoIdentificacion.setModel(new DefaultComboBoxModel<>(opciones));
-    }//GEN-LAST:event_cbTipoIdentificacionActionPerformed
     private void limpiarCampos() {
             
         txtIdentificacion.setText("");
@@ -360,7 +386,59 @@ public class Proveedor extends javax.swing.JInternalFrame {
         txtTelefono.setText("");
         txtCorreo.setText("");
         txtDireccion.setText("");
+    }   
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int filaSeleccionada = tblProveedor.getSelectedRow();
+
+    if (filaSeleccionada != -1) {
+    String identificacion = tblProveedor.getValueAt(filaSeleccionada, 2).toString(); // columna identificación
+
+    ProveedorDAO dao = new ProveedorDAO();
+    
+    if (dao.eliminarProveedor(identificacion)) {
+        JOptionPane.showMessageDialog(null, "Proveedor eliminado de la base de datos.");
+    
+    } else {
+        JOptionPane.showMessageDialog(null, "Error al eliminar proveedor de la base de datos.");
     }
+
+    } else {
+    JOptionPane.showMessageDialog(null, "Seleccione un proveedor de la tabla.");
+
+    }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+    String identificacion = JOptionPane.showInputDialog("Ingrese la identificación del proveedor:");
+
+    if (identificacion != null && !identificacion.trim().isEmpty()) {
+    ProveedorDAO dao = new ProveedorDAO();
+    Proveedor proveedor = dao.buscarPorIdentificacion(identificacion.trim());
+
+    if (proveedor != null) {
+        DefaultTableModel modelo = (DefaultTableModel) tblProveedor.getModel();
+        modelo.setRowCount(0); // limpiar tabla
+
+        modelo.addRow(new Object[] {
+            proveedor.getNombre(),
+            proveedor.getTipoIdentificacion(),
+            proveedor.getIdentificacion(),
+            proveedor.getRazonSocial(),
+            proveedor.getTelefono(),
+            proveedor.getCorreo(),
+            proveedor.getDireccion()
+        });
+    } else {
+        JOptionPane.showMessageDialog(null, "Proveedor no encontrado.");
+    }
+}
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void cbTipoIdentificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoIdentificacionActionPerformed
+        
+    }//GEN-LAST:event_cbTipoIdentificacionActionPerformed
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
