@@ -4,10 +4,13 @@
  */
 package Inventario.DAO;
 
+
+
 /**
  *
  * @author HP
  */
 public class FacturaDAO {
     
+
 }

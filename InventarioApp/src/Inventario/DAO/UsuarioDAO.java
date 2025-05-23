@@ -1,8 +1,10 @@
 package Inventario.DAO;
 
 import Inventario.SQLite.Conexion;
+import Inventario.SQLite.Request.UsuarioRequest;
 import inventario.Modelo.Usuario;
 import java.sql.*;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class UsuarioDAO {
@@ -99,6 +101,8 @@ public class UsuarioDAO {
         return false;
     }
 }
-    
+     public List<Usuario> obtenerTodos() {
+        return UsuarioRequest.obtenerTodos();
+    }
     
 }

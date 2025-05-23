@@ -28,35 +28,6 @@ public class Pedido {
         this.estado = estado;
     }
 
-    public float calcularTotal() {
-        float total = 0;
-        if (detalles != null) {
-            for (DetallePedido detalle : detalles) {
-                total += detalle.calcularSubtotal(); 
-            }
-        }
-        return total;
-    }
-
-    public float calcularTotalIva() {
-        float totalIva = 0;
-        if (detalles != null) {
-            for (DetallePedido detalle : detalles) {
-                totalIva += detalle.calcularValorIva(); 
-            }
-        }
-        return totalIva;
-    }
-
-    public float calcularTotalDescuento() {
-        float totalDescuento = 0;
-        if (detalles != null) {
-            for (DetallePedido detalle : detalles) {
-                totalDescuento += detalle.calcularDescuento();
-            }
-        }
-        return totalDescuento;
-    }
 
     public int getId() {
         return id;
