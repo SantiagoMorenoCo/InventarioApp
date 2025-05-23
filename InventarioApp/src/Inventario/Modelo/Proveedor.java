@@ -9,6 +9,7 @@ public class Proveedor {
  private String correo;
  private String direccion;
  
+ 
  public Proveedor(String identificacion, String tipoIdentificacion, String razonSocial,
    String telefono, String correo, String direccion){
  this.id = id;
