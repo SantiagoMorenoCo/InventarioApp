@@ -1,39 +1,75 @@
 package inventario.Modelo;
-import java.util.Date;
+
+import java.time.LocalDate;
+
 
 public class Factura {
- private Date fechaEmision;
- private Venta venta;
- private int generarFactura;
+    private int id;
+    private String cedulaCliente;
+    private String nombreCliente;
+    private String metodoPago;
+    private String fecha;
+    private double total;
 
-public Factura(Date fechaEmision, Venta venta, int generarFctura){
-this.fechaEmision = fechaEmision;
-this.venta = venta;
-this.generarFactura = generarFactura;
-
- } 
-
-    public Date getFechaEmision() {
-        return fechaEmision;
+    public Factura() {
     }
 
-    public void setFechaEmision(Date fechaEmision) {
-        this.fechaEmision = fechaEmision;
+    public Factura(int id, String cedulaCliente, String nombreCliente, String metodoPago, String fecha, double total) {
+        this.id = id;
+        this.cedulaCliente = cedulaCliente;
+        this.nombreCliente = nombreCliente;
+        this.metodoPago = metodoPago;
+        this.fecha = fecha;
+        this.total = total;
     }
 
-    public Venta getVenta() {
-        return venta;
+    public int getId() {
+        return id;
     }
 
-    public void setVenta(Venta venta) {
-        this.venta = venta;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getGenerarFactura() {
-        return generarFactura;
+    public String getCedulaCliente() {
+        return cedulaCliente;
     }
 
-    public void setGenerarFactura(int generarFactura) {
-        this.generarFactura = generarFactura;
+    public void setCedulaCliente(String cedulaCliente) {
+        this.cedulaCliente = cedulaCliente;
     }
+
+    public String getNombreCliente() {
+        return nombreCliente;
+    }
+
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
+    }
+
+    public String getMetodoPago() {
+        return metodoPago;
+    }
+
+    public void setMetodoPago(String metodoPago) {
+        this.metodoPago = metodoPago;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+    
+    
 }

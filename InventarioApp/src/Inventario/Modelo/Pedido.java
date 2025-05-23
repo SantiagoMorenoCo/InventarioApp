@@ -7,7 +7,7 @@ public class Pedido {
     private LocalDateTime fecha;
     private Cliente cliente;
     private Empleado empleado;
-    private List<DetallePedido> detalles;
+    private List<DetalleFactura> detalles;
     private String estado;
 
     public Pedido() {
@@ -19,7 +19,7 @@ public class Pedido {
         this.empleado = empleado;
     }
 
-    public Pedido(int id, LocalDateTime fecha, Cliente cliente, Empleado empleado, List<DetallePedido> detalles, String estado) {
+    public Pedido(int id, LocalDateTime fecha, Cliente cliente, Empleado empleado, List<DetalleFactura> detalles, String estado) {
         this.id = id;
         this.fecha = fecha;
         this.cliente = cliente;
@@ -61,11 +61,11 @@ public class Pedido {
         this.empleado = empleado;
     }
 
-    public List<DetallePedido> getDetalles() {
+    public List<DetalleFactura> getDetalles() {
         return detalles;
     }
 
-    public void setDetalles(List<DetallePedido> detalles) {
+    public void setDetalles(List<DetalleFactura> detalles) {
         this.detalles = detalles;
     }
 
