@@ -12,6 +12,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         setLocationRelativeTo(null);
+        this.getRootPane().setDefaultButton(btnIngresar);
     }
     
    
@@ -111,8 +112,8 @@ public class Login extends javax.swing.JFrame {
         Usuario u = LoginRequest.verificarLogin(usuario, contraseña);
         
         if (usuario.isEmpty() || contraseña.isEmpty()){
-            
-            JOptionPane.showMessageDialog(this, "Campos vacios...! Por favor ingrese todos los datos");
+        JOptionPane.showMessageDialog(this, "Campos vacios...! Por favor ingrese todos los datos");
+         System.exit(0);
         }
            
         else if (u != null) {
@@ -122,6 +123,7 @@ public class Login extends javax.swing.JFrame {
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos");
+            System.exit(0);
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 

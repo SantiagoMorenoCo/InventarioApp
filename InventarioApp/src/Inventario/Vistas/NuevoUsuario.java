@@ -1,4 +1,3 @@
-
 package Inventario.Vistas;
 
 import Inventario.DAO.UsuarioDAO;
@@ -255,24 +254,25 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
        
-       Usuario u = new Usuario();
-                u.setNombre(txtNombre.getText());
-                u.setUsuario(txtUsuario.getText());
-                u.setApellido(txtApellido.getText());
-                u.setContraseña(new String(txtContraseña.getPassword())); 
-                u.setRol(Roles.valueOf(cmbRol.getSelectedItem().toString()));
-                u.setTipoIdentificacion(TipoDeIdentificacion.valueOf(cmbTipoIdentificacion.getSelectedItem().toString()));
-                u.setCedula(txtCedula.getText());
-                u.setTelefono(txtTelefono.getText());
+        Usuario u = new Usuario();
+        u.setNombre(txtNombre.getText());
+        u.setUsuario(txtUsuario.getText());
+        u.setApellido(txtApellido.getText());
+        u.setContraseña(new String(txtContraseña.getPassword()));
+        u.setRol(Roles.valueOf(cmbRol.getSelectedItem().toString()));
+        u.setTipoIdentificacion(TipoDeIdentificacion.valueOf(cmbTipoIdentificacion.getSelectedItem().toString()));
+        u.setCedula(txtCedula.getText());
+        u.setTelefono(txtTelefono.getText());
 
-                UsuarioDAO dao = new UsuarioDAO();
-                boolean exito = dao.guardarUsuario(u);
+        UsuarioDAO dao = new UsuarioDAO();
+        boolean exito = dao.guardarUsuario(u);
+        this.dispose();
 
-                if (exito) {
-                    JOptionPane.showMessageDialog(null, "Usuario guardado correctamente");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error al guardar usuario");
-                }
+        if (exito) {
+            JOptionPane.showMessageDialog(null, "Usuario guardado correctamente");
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al guardar usuario");
+        }
 
     }//GEN-LAST:event_btnGuardarActionPerformed
 

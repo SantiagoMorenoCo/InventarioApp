@@ -214,7 +214,7 @@ public class GestionInventario extends javax.swing.JInternalFrame {
         try {
             Connection con = Conexion.conectar();
             PreparedStatement ps = con.prepareStatement("DELETE FROM producto WHERE id = ?");
-            ps.setInt(1, id); // Set the ID for deletion
+            ps.setInt(1, id); 
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Producto eliminado.");
             cargarProductosEnTabla();
