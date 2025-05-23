@@ -29,21 +29,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        NuevoUsuar = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        GestionUsuar = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        NuevoProduct = new javax.swing.JMenuItem();
+        GestionInvent = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        RealizarVent = new javax.swing.JMenuItem();
+        Historic = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Inventario/Imagenes/audience_9928116.png"))); // NOI18N
-        jMenu1.setText("Usuario");
-        jMenu1.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        NuevoUsuar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Inventario/Imagenes/audience_9928116.png"))); // NOI18N
+        NuevoUsuar.setText("Usuario");
+        NuevoUsuar.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
 
         jMenuItem1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Inventario/Imagenes/add-user_15336957.png"))); // NOI18N
@@ -53,41 +53,41 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        NuevoUsuar.add(jMenuItem1);
 
-        jMenuItem3.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Inventario/Imagenes/management_2683650.png"))); // NOI18N
-        jMenuItem3.setText("Gestionar Usuario");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        GestionUsuar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        GestionUsuar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Inventario/Imagenes/management_2683650.png"))); // NOI18N
+        GestionUsuar.setText("Gestionar Usuario");
+        GestionUsuar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                GestionUsuarActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        NuevoUsuar.add(GestionUsuar);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(NuevoUsuar);
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Inventario/Imagenes/product_16090175.png"))); // NOI18N
         jMenu2.setText("Producto e Inventario");
         jMenu2.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
 
-        jMenuItem2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jMenuItem2.setText("Nuevo Producto");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        NuevoProduct.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        NuevoProduct.setText("Nuevo Producto");
+        NuevoProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                NuevoProductActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem2);
+        jMenu2.add(NuevoProduct);
 
-        jMenuItem4.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jMenuItem4.setText("Gestionar Producto");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        GestionInvent.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        GestionInvent.setText("Gestion Inventario");
+        GestionInvent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                GestionInventActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem4);
+        jMenu2.add(GestionInvent);
 
         jMenuBar1.add(jMenu2);
 
@@ -95,20 +95,20 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu3.setText("Venta");
         jMenu3.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
 
-        jMenuItem5.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Inventario/Imagenes/cart_2304982.png"))); // NOI18N
-        jMenuItem5.setText("Realizar Venta");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        RealizarVent.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        RealizarVent.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Inventario/Imagenes/cart_2304982.png"))); // NOI18N
+        RealizarVent.setText("Realizar Venta");
+        RealizarVent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                RealizarVentActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem5);
+        jMenu3.add(RealizarVent);
 
-        jMenuItem6.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Inventario/Imagenes/bill_1897109.png"))); // NOI18N
-        jMenuItem6.setText("Historico");
-        jMenu3.add(jMenuItem6);
+        Historic.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        Historic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Inventario/Imagenes/bill_1897109.png"))); // NOI18N
+        Historic.setText("Historico");
+        jMenu3.add(Historic);
 
         jMenuBar1.add(jMenu3);
 
@@ -140,7 +140,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         nuevoUsuario.setLocation(x, y);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void NuevoProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoProductActionPerformed
         NuevoProducto nuevoProducto = new NuevoProducto();
         jDesktopPane_menu.add(nuevoProducto);
         nuevoProducto.setVisible(true); 
@@ -150,9 +150,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         int x = (desktopSize.width - frameSize.width) / 2;
         int y = (desktopSize.height - frameSize.height) / 2;
         nuevoProducto.setLocation(x, y);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_NuevoProductActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void GestionUsuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GestionUsuarActionPerformed
         GestionarUsuario gestionarUsuario = new GestionarUsuario();
         jDesktopPane_menu.add(gestionarUsuario);
         gestionarUsuario.setVisible(true);
@@ -164,22 +164,22 @@ public class MenuPrincipal extends javax.swing.JFrame {
         gestionarUsuario.setLocation(x, y);
 
 
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_GestionUsuarActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        GestionarProducto gestionarProducto = new GestionarProducto();
-        jDesktopPane_menu.add(gestionarProducto);
-        gestionarProducto.setVisible(true);
+    private void GestionInventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GestionInventActionPerformed
+        GestionInventario gestionarInventario = new GestionInventario();
+        jDesktopPane_menu.add(gestionarInventario);
+        gestionarInventario.setVisible(true); 
         
         Dimension desktopSize = jDesktopPane_menu.getSize();
-        Dimension frameSize = gestionarProducto.getSize();
+        Dimension frameSize = gestionarInventario.getSize();
         int x = (desktopSize.width - frameSize.width) / 2;
         int y = (desktopSize.height - frameSize.height) / 2;
-        gestionarProducto.setLocation(x, y);
+        gestionarInventario.setLocation(x, y);
 
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_GestionInventActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void RealizarVentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RealizarVentActionPerformed
         RealizarVentas realizarVenta = new RealizarVentas();
         jDesktopPane_menu.add(realizarVenta);
         realizarVenta.setVisible(true);
@@ -189,7 +189,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         int x = (desktopSize.width - frameSize.width) / 2;
         int y = (desktopSize.height - frameSize.height) / 2;
         realizarVenta.setLocation(x, y);
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_RealizarVentActionPerformed
 
     /**
      * @param args the command line arguments
@@ -227,15 +227,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuItem GestionInvent;
+    private javax.swing.JMenuItem GestionUsuar;
+    private javax.swing.JMenuItem Historic;
+    private javax.swing.JMenuItem NuevoProduct;
+    private javax.swing.JMenu NuevoUsuar;
+    private javax.swing.JMenuItem RealizarVent;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     // End of variables declaration//GEN-END:variables
 }

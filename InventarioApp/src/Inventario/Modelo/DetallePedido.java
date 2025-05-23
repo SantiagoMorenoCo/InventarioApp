@@ -68,20 +68,4 @@ public class DetallePedido {
         this.calcularSubtotal = calcularSubtotal;
     }
     
-    public float calcularSubtotal(){
-        var subtotal = 0F;
-        subtotal = producto.getPrecioVenta() * this.cantidad - this.descuento;
-        var valorIVa = subtotal * producto.getIva();
-        return  subtotal + valorIVa;
-    }
-    
-    public float calcularValorIva(){
-        return (producto.getPrecioVenta() * this.cantidad - this.descuento) 
-                * producto.getIva();
-    }
-    
-    public float calcularDescuento(){
-        return producto.getPrecioVenta() * this.cantidad - this.descuento;
-    }
-
 }
