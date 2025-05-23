@@ -1,6 +1,7 @@
 package Inventario.Vistas;
 
 import Inventario.DAO.UsuarioDAO;
+import Inventario.Enums.MetodoPagoEnum;
 import Inventario.Enums.Roles;
 import Inventario.Enums.TipoDeIdentificacion;
 import inventario.Modelo.Usuario;
@@ -12,7 +13,8 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
    
     public NuevoUsuario() {
         initComponents();
-        
+        cargarRoles();
+        cargarTipoDocumento();
     }
 
     @SuppressWarnings("unchecked")
@@ -74,7 +76,6 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
         lbApellido.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbApellido.setText("Apellido:");
 
-        cmbTipoIdentificacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "CC", "TI", "CE", "NIT" }));
         cmbTipoIdentificacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbTipoIdentificacionActionPerformed(evt);
@@ -99,8 +100,6 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
         lbUsuario.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         lbUsuario.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbUsuario.setText("Usuario:");
-
-        cmbRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar...", "ADMINISTRADOR", "VENDEDOR", "OTRO", " " }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -288,6 +287,17 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
         cmbTipoIdentificacion.setSelectedIndex(0);
     }//GEN-LAST:event_btnLimpiarCamposActionPerformed
 
+    private void cargarRoles() {
+        for (Roles metodo : Roles.values()) {
+            cmbRol.addItem(metodo.toString());
+        }
+    }
+    private void cargarTipoDocumento() {
+        for (Roles metodo : Roles.values()) {
+            cmbRol.addItem(metodo.toString());
+        }
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;

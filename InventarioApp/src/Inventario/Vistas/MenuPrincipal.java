@@ -72,6 +72,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu2.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
 
         NuevoProduct.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        NuevoProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Inventario/Imagenes/new_6136404.png"))); // NOI18N
         NuevoProduct.setText("Nuevo Producto");
         NuevoProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,6 +82,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu2.add(NuevoProduct);
 
         GestionInvent.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        GestionInvent.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Inventario/Imagenes/report_4048758.png"))); // NOI18N
         GestionInvent.setText("Gestion Inventario");
         GestionInvent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

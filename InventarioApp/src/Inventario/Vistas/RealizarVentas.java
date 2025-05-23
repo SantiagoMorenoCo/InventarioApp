@@ -1,10 +1,16 @@
 package Inventario.Vistas;
 
+import Inventario.DAO.DetalleFacturaDAO;
+import Inventario.DAO.FacturaDAO;
 import Inventario.Enums.MetodoPagoEnum;
 import static Inventario.Vistas.MenuPrincipal.jDesktopPane_menu;
 import Inventario.Vistas.internal.SeleccionarProducto;
 import Inventario.Vistas.internal.SeleccionarUsuario;
+import inventario.Modelo.DetalleFactura;
+import inventario.Modelo.Factura;
 import java.awt.Dimension;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -198,7 +204,7 @@ public class RealizarVentas extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Total:");
 
-        lbTotal.setText("Total");
+        lbTotal.setText("0.00");
 
         javax.swing.GroupLayout TotalLayout = new javax.swing.GroupLayout(Total);
         Total.setLayout(TotalLayout);
@@ -224,6 +230,11 @@ public class RealizarVentas extends javax.swing.JInternalFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "   Archivo   ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto", 1, 12))); // NOI18N
 
         btnGuardar.setText("Guardar Factura");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnImprimir.setText("Imprimir Factura");
 
@@ -347,15 +358,74 @@ public class RealizarVentas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         txtCedula.setText("");
         txtNombre.setText("");
-        jdFecha.setDate(null); // Si usas un JDateChooser, sería txtFecha.setDate(null);
+        jdFecha.setDate(null); 
 
-        // Limpiar tabla de productos
+        
         DefaultTableModel modelo = (DefaultTableModel) tablaProductos.getModel();
-        modelo.setRowCount(0); // Elimina todas las filas
+        modelo.setRowCount(0); 
 
-        // Reiniciar total (si tienes un JLabel o JTextField para mostrarlo)
+        
         lbTotal.setText("0.00");
     }//GEN-LAST:event_btnNuevaActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+
+        String cedula = txtCedula.getText().trim();
+        String nombre = txtNombre.getText().trim();
+        String metodoPago = cmbMetodoPago.getSelectedItem().toString();
+        Date fechaSeleccionada = jdFecha.getDate();
+
+        if (cedula.isEmpty() || nombre.isEmpty() || fechaSeleccionada == null) {
+            JOptionPane.showMessageDialog(this, "Completa todos los datos del cliente y fecha.");
+            return;
+        }
+
+        DefaultTableModel modelo = (DefaultTableModel) tablaProductos.getModel();
+        if (modelo.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Agrega al menos un producto a la factura.");
+            return;
+        }
+
+        double total = 0.0;
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            total += Double.parseDouble(modelo.getValueAt(i, 4).toString()); 
+        }
+
+        
+        Factura factura = new Factura();
+        
+        factura.setCedulaCliente(cedula);
+        factura.setNombreCliente(nombre);
+        factura.setMetodoPago(metodoPago);
+        factura.setFecha(new SimpleDateFormat("yyyy-MM-dd").format(fechaSeleccionada));
+        factura.setTotal(total);
+
+        FacturaDAO facturaDAO = new FacturaDAO();
+        int idFactura = facturaDAO.insertarFactura(factura);
+
+        if (idFactura == -1) {
+            JOptionPane.showMessageDialog(this, "Error al guardar la factura.");
+            return;
+        }
+
+        
+        DetalleFacturaDAO detalleDAO = new DetalleFacturaDAO();
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            DetalleFactura detalle = new DetalleFactura();
+            detalle.setFacturaId(idFactura);
+            detalle.setNombreProducto(modelo.getValueAt(i, 1).toString()); 
+            detalle.setDescripcion(modelo.getValueAt(i, 2).toString()); 
+            detalle.setPrecioUnitario(Double.parseDouble(modelo.getValueAt(i, 3).toString()));
+            detalle.setCantidad(Integer.parseInt(modelo.getValueAt(i, 0).toString())); 
+            detalle.setSubtotal(Double.parseDouble(modelo.getValueAt(i, 4).toString())); 
+
+            detalleDAO.insertarDetalle(detalle);
+        }
+
+        JOptionPane.showMessageDialog(this, "Factura guardada correctamente.");
+    
+
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     public void setDatosCliente(String cedula, String nombre) {
     txtCedula.setText(cedula);
