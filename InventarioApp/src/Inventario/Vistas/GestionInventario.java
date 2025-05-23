@@ -36,6 +36,7 @@ public class GestionInventario extends javax.swing.JInternalFrame {
         jTextField2 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
 
+        setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
@@ -262,7 +263,7 @@ public class GestionInventario extends javax.swing.JInternalFrame {
         }
 
         jTable1.setModel(modelo);
-        limpiarDetalle();
+       
     } catch (SQLException ex) {
         JOptionPane.showMessageDialog(null, "Error en la búsqueda: " + ex.getMessage());
     }
@@ -272,119 +273,111 @@ public class GestionInventario extends javax.swing.JInternalFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
   int fila = jTable1.getSelectedRow();
-        if (fila == -1) {
-            JOptionPane.showMessageDialog(null, "Selecciona un producto para actualizar el stock.");
+if (fila == -1) {
+    JOptionPane.showMessageDialog(null, "Selecciona un producto para actualizar el stock.");
+    return;
+}
+
+String stockStr = JOptionPane.showInputDialog(
+    null, 
+    "Ingresa el nuevo stock:", 
+    "Actualizar Stock", 
+    JOptionPane.QUESTION_MESSAGE
+);
+
+if (stockStr != null && !stockStr.trim().isEmpty()) {
+    try {
+        int nuevoStock = Integer.parseInt(stockStr.trim());
+        if (nuevoStock < 0) {
+            JOptionPane.showMessageDialog(null, "El stock no puede ser negativo.");
             return;
         }
 
-        String stockStr = JOptionPane.showInputDialog(
-            null, 
-            "Ingresa el nuevo stock:", 
-            "Actualizar Stock", 
-            JOptionPane.QUESTION_MESSAGE
-        );
+        int id = (int) jTable1.getValueAt(fila, 0);
 
-        if (stockStr != null && !stockStr.trim().isEmpty()) {
-            try {
-                int nuevoStock = Integer.parseInt(stockStr.trim());
-                if (nuevoStock < 0) {
-                    JOptionPane.showMessageDialog(null, "El stock no puede ser negativo.");
-                    return;
-                }
-
-                int id = (int) jTable1.getValueAt(fila, 0);
-
-                Connection con = Conexion.conectar();
-                PreparedStatement ps = con.prepareStatement("SELECT * FROM producto WHERE nombre LIKE ? OR descripcion LIKE ?");
-                ps.setInt(1, nuevoStock);
-                ps.setInt(2, id);
-                
-                int filasAfectadas = ps.executeUpdate();
-                if (filasAfectadas > 0) {
-                    JOptionPane.showMessageDialog(null, "Stock actualizado correctamente.");
-                    cargarProductosEnTabla();
-                    mostrarDetalleProducto();
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se pudo actualizar el stock.");
-                }
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Por favor, ingresa un número válido.");
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Error al actualizar stock: " + ex.getMessage());
-            }
+        Connection con = Conexion.conectar();
+        PreparedStatement ps = con.prepareStatement("UPDATE producto SET stock = ? WHERE id = ?");
+        ps.setInt(1, nuevoStock);
+        ps.setInt(2, id);
+        
+        int filasAfectadas = ps.executeUpdate();
+        if (filasAfectadas > 0) {
+            JOptionPane.showMessageDialog(null, "Stock actualizado correctamente.");
+            cargarProductosEnTabla();
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pudo actualizar el stock.");
         }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Por favor, ingresa un número válido.");
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al actualizar stock: " + ex.getMessage());
+    }
+}
+
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
- int fila = jTable1.getSelectedRow();
+int fila = jTable1.getSelectedRow();
         if (fila == -1) {
             JOptionPane.showMessageDialog(null, "Selecciona un producto para editar.");
             return;
         }
 
         int id = (int) jTable1.getValueAt(fila, 0);
-        String descripcion = jTextField2.getText().trim();
+        String nuevaDescripcion = jTextField2.getText().trim();
 
-        if (descripcion.isEmpty()) {
+        if (nuevaDescripcion.isEmpty()) {
             JOptionPane.showMessageDialog(null, "La descripción no puede estar vacía.");
             return;
         }
 
         try {
             Connection con = Conexion.conectar();
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM producto WHERE nombre LIKE ? OR descripcion LIKE ?");
-            ps.setString(1, descripcion);
+            PreparedStatement ps = con.prepareStatement("UPDATE producto SET descripcion = ? WHERE id = ?");
+            ps.setString(1, nuevaDescripcion);
             ps.setInt(2, id);
+            ps.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Descripción actualizada correctamente.");
+            cargarProductosEnTabla();
             
-            int filasAfectadas = ps.executeUpdate();
-            if (filasAfectadas > 0) {
-                JOptionPane.showMessageDialog(null, "Producto actualizado correctamente.");
-                cargarProductosEnTabla();
-            } else {
-                JOptionPane.showMessageDialog(null, "No se pudo actualizar el producto.");
-            }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar: " + ex.getMessage());
-        }        // TODO add your handling code here:
+            JOptionPane.showMessageDialog(null, "Error al editar: " + ex.getMessage());
+        }
+    
     }//GEN-LAST:event_jButton3ActionPerformed
 private void cargarProductosEnTabla() {
     DefaultTableModel modelo = new DefaultTableModel();
     modelo.addColumn("ID");
     modelo.addColumn("Nombre");
     modelo.addColumn("Descripción");
-    modelo.addColumn("Precio");
+    modelo.addColumn("Precio Venta");
+    modelo.addColumn("Precio Compra");
+    modelo.addColumn("IVA");
+    modelo.addColumn("Stock");
 
     try {
         Connection con = Conexion.conectar();
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM producto WHERE nombre LIKE ? OR descripcion LIKE ?");
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery("SELECT * FROM producto");
 
         while (rs.next()) {
             modelo.addRow(new Object[]{
                 rs.getInt("id"),
                 rs.getString("nombre"),
                 rs.getString("descripcion"),
-                rs.getDouble("precio")
+                rs.getDouble("precioVenta"),
+                rs.getDouble("precioCompra"),
+                rs.getDouble("iva"),
+                rs.getInt("stock")
             });
         }
+
         jTable1.setModel(modelo);
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error al cargar productos: " + e.getMessage());
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al cargar productos: " + ex.getMessage());
     }
 }
- private void limpiarDetalle() {
-        jTextField2.setText("");
-        jLabel4.setText("---");
-       }
- private void mostrarDetalleProducto() {
-        int fila = jTable1.getSelectedRow();
-        if (fila >= 0) {
-            jTextField2.setText(jTable1.getValueAt(fila, 2).toString()); // Descripción
-            jLabel4.setText("$" + jTable1.getValueAt(fila, 3).toString()); // Precio Venta
-        } else {
-            limpiarDetalle();
-        }
-    }
 
 
 
