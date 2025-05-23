@@ -170,7 +170,7 @@ public class NuevoProducto extends javax.swing.JInternalFrame {
             float precioVenta = Float.parseFloat(txt_PrecioVenta.getText());
             int stock = Integer.parseInt(txt_nombre2.getText());
 
-            // Obtener IVA del combo
+            // Obtener IVA del 
             String ivaSeleccionado = (String) jComboBox2.getSelectedItem();
             float iva = 0;
             if (ivaSeleccionado.equals("15%")) {
@@ -179,16 +179,17 @@ public class NuevoProducto extends javax.swing.JInternalFrame {
                 iva = 0.19f;
             }
 
-            // Crear objeto Producto (usa 0 como id inicial si es autoincremental)
+            // Crear objeto Producto 
             Producto producto = new Producto(0, nombre, descripcion, precioVenta, 0f, iva, stock);
 
-            // Guardar con DAO
+            // Guardar en DAO
             ProductoDAO dao = new ProductoDAO();
             boolean guardado = dao.guardarProducto(producto);
+            this.dispose();
 
             if (guardado) {
                 JOptionPane.showMessageDialog(this, "Producto guardado correctamente.");
-                limpiarCampos(); // Si no lo tienes, podemos crearlo.
+                limpiarCampos(); 
             } else {
                 JOptionPane.showMessageDialog(this, "Error al guardar el producto.");
             }
