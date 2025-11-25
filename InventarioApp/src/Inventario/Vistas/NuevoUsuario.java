@@ -1,7 +1,6 @@
 package Inventario.Vistas;
 
 import Inventario.DAO.UsuarioDAO;
-import Inventario.Enums.MetodoPagoEnum;
 import Inventario.Enums.Roles;
 import Inventario.Enums.TipoDeIdentificacion;
 import inventario.Modelo.Usuario;
@@ -9,7 +8,6 @@ import javax.swing.JOptionPane;
 
 
 public class NuevoUsuario extends javax.swing.JInternalFrame {
-
    
     public NuevoUsuario() {
         initComponents();
@@ -100,6 +98,12 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
         lbUsuario.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         lbUsuario.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbUsuario.setText("Usuario:");
+
+        cmbRol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbRolActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -247,36 +251,56 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cmbTipoIdentificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoIdentificacionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbTipoIdentificacionActionPerformed
-
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-       
-        Usuario u = new Usuario();
-        u.setNombre(txtNombre.getText());
-        u.setUsuario(txtUsuario.getText());
-        u.setApellido(txtApellido.getText());
-        u.setContraseña(new String(txtContraseña.getPassword()));
-        u.setRol(Roles.valueOf(cmbRol.getSelectedItem().toString()));
-        u.setTipoIdentificacion(TipoDeIdentificacion.valueOf(cmbTipoIdentificacion.getSelectedItem().toString()));
-        u.setCedula(txtCedula.getText());
-        u.setTelefono(txtTelefono.getText());
+     if (txtNombre.getText().trim().isEmpty() ||
+      txtUsuario.getText().trim().isEmpty() ||
+      txtApellido.getText().trim().isEmpty() ||
+      txtContraseña.getPassword().length == 0 ||
+      txtCedula.getText().trim().isEmpty() ||
+      txtTelefono.getText().trim().isEmpty()) {
 
-        UsuarioDAO dao = new UsuarioDAO();
-        boolean exito = dao.guardarUsuario(u);
-        this.dispose();
+    JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios.");
+    return;
+  }
 
-        if (exito) {
-            JOptionPane.showMessageDialog(null, "Usuario guardado correctamente");
-        } else {
-            JOptionPane.showMessageDialog(null, "Error al guardar usuario");
-        }
+   if (!txtTelefono.getText().matches("\\d+")) {
+      JOptionPane.showMessageDialog(null, "El teléfono debe contener solo números.");
+   return;
+}
 
+   UsuarioDAO dao = new UsuarioDAO();
+
+    if (dao.usuarioExiste(txtUsuario.getText().trim())) {
+      JOptionPane.showMessageDialog(null, "El nombre de usuario ya está registrado.");
+    return;
+}
+
+   Usuario u = new Usuario();
+    u.setNombre(txtNombre.getText());
+    u.setUsuario(txtUsuario.getText());
+    u.setApellido(txtApellido.getText());
+    u.setContraseña(new String(txtContraseña.getPassword()));
+    u.setCedula(txtCedula.getText());
+    u.setTelefono(txtTelefono.getText());
+
+
+   String rol = cmbRol.getSelectedItem().toString().toUpperCase().replace(" ", "_");
+   String tipo = cmbTipoIdentificacion.getSelectedItem().toString().toUpperCase().replace(" ", "_");
+
+   u.setRol(Roles.valueOf(rol));
+   u.setTipoIdentificacion(TipoDeIdentificacion.valueOf(tipo));
+
+  boolean exito = dao.guardarUsuario(u);
+
+  if (exito) {
+    JOptionPane.showMessageDialog(null, "Usuario guardado correctamente");
+    this.dispose();
+} else {
+    JOptionPane.showMessageDialog(null, "Error al guardar usuario");
+}
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnLimpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarCamposActionPerformed
-        // TODO add your handling code here:
         txtNombre.setText("");
         txtApellido.setText("");
         txtCedula.setText("");
@@ -287,14 +311,23 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
         cmbTipoIdentificacion.setSelectedIndex(0);
     }//GEN-LAST:event_btnLimpiarCamposActionPerformed
 
+    private void cmbRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRolActionPerformed
+    
+    }//GEN-LAST:event_cmbRolActionPerformed
+
+    private void cmbTipoIdentificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoIdentificacionActionPerformed
+       
+
+    }//GEN-LAST:event_cmbTipoIdentificacionActionPerformed
+
     private void cargarRoles() {
         for (Roles metodo : Roles.values()) {
             cmbRol.addItem(metodo.toString());
         }
     }
     private void cargarTipoDocumento() {
-        for (Roles metodo : Roles.values()) {
-            cmbRol.addItem(metodo.toString());
+        for (TipoDeIdentificacion tipo : TipoDeIdentificacion.values()) {
+        cmbTipoIdentificacion.addItem(tipo.toString());
         }
     }
     
@@ -303,7 +336,7 @@ public class NuevoUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiarCampos;
     private javax.swing.JComboBox<String> cmbRol;
-    public javax.swing.JComboBox<String> cmbTipoIdentificacion;
+    private javax.swing.JComboBox<String> cmbTipoIdentificacion;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;

@@ -1,16 +1,24 @@
 package Inventario.Vistas;
 
 import Inventario.SQLite.Conexion;
+import inventario.Modelo.Producto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
 public class GestionInventario extends javax.swing.JInternalFrame {
+    private LinkedList<Producto> listaProductos = new LinkedList<>();
+    private Stack<Producto> pilaEliminados = new Stack<>();
+    private Queue<Producto> colaStock = new LinkedList<>();
 
     public GestionInventario() {
         initComponents();
@@ -71,6 +79,8 @@ public class GestionInventario extends javax.swing.JInternalFrame {
                     .addComponent(jButton2))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
+
+        jScrollPane1.setToolTipText("\n");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -200,19 +210,33 @@ public class GestionInventario extends javax.swing.JInternalFrame {
                 .addComponent(PanelDeDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        jScrollPane1.getAccessibleContext().setAccessibleDescription("\n");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        int fila = jTable1.getSelectedRow();
-        if (fila == -1) {
-            JOptionPane.showMessageDialog(null, "Selecciona un producto para eliminar.");
-            return;
-        }
+    int fila = jTable1.getSelectedRow();
+     if (fila == -1) {
+        JOptionPane.showMessageDialog(null, "Selecciona un producto para eliminar.");
+        return;
+    }
 
-        int id = (int) jTable1.getValueAt(fila, 0);
 
-        try {
+    int id = (int) jTable1.getValueAt(fila, 0);
+    String nombre = (String) jTable1.getValueAt(fila, 1);
+    String descripcion = (String) jTable1.getValueAt(fila, 2);
+    Double precioVenta = (Double) jTable1.getValueAt(fila, 3);
+    Double precioCompra = (Double) jTable1.getValueAt(fila, 4);
+    float iva = (float) jTable1.getValueAt(fila, 5);
+    int stock = (int) jTable1.getValueAt(fila, 6);
+
+   Producto eliminado = new Producto(id, nombre, descripcion,
+                                   precioVenta, precioCompra,
+                                   iva, stock);
+
+   pilaEliminados.push(eliminado);
+   try {
             Connection con = Conexion.conectar();
             PreparedStatement ps = con.prepareStatement("DELETE FROM producto WHERE id = ?");
             ps.setInt(1, id); 
@@ -228,22 +252,13 @@ public class GestionInventario extends javax.swing.JInternalFrame {
     String valor = jTextField1.getText().trim();
 
     if (valor.isEmpty()) {
-        cargarProductosEnTabla();
-        return;
+    JOptionPane.showMessageDialog(null, "Escribe el nombre del producto que estas buscando");   
+    return;
     }
-
-    DefaultTableModel modelo = new DefaultTableModel();
-    modelo.addColumn("ID");
-    modelo.addColumn("Nombre");
-    modelo.addColumn("Descripción");
-    modelo.addColumn("Precio Venta");
-    modelo.addColumn("Precio Compra");
-    modelo.addColumn("IVA");
-    modelo.addColumn("Stock");
-
+    ArrayList<Object[]> listaResultados = new ArrayList<>();
     String consulta = "SELECT * FROM producto WHERE nombre LIKE ? OR descripcion LIKE ?"; // Changed 'productos' to 'producto' and added WHERE clause
 
-    try {
+   try {
         Connection con = Conexion.conectar();
         PreparedStatement ps = con.prepareStatement(consulta);
         ps.setString(1, "%" + valor + "%"); // Bind value to the first placeholder
@@ -251,7 +266,7 @@ public class GestionInventario extends javax.swing.JInternalFrame {
         ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {
-            modelo.addRow(new Object[]{
+            listaResultados.add(new Object[]{
                 rs.getInt("id"),
                 rs.getString("nombre"),
                 rs.getString("descripcion"),
@@ -261,8 +276,25 @@ public class GestionInventario extends javax.swing.JInternalFrame {
                 rs.getInt("stock")
             });
         }
-
-        jTable1.setModel(modelo);
+        if (listaResultados.isEmpty()){
+           JOptionPane.showMessageDialog(null,"El producto no esta en nuestra base de datos");
+           jTextField1.setText("");
+        return;
+        }
+        
+   DefaultTableModel modelo = new DefaultTableModel();
+    modelo.addColumn("ID");
+    modelo.addColumn("Nombre");
+    modelo.addColumn("Descripción");
+    modelo.addColumn("Precio Venta");
+    modelo.addColumn("Precio Compra");
+    modelo.addColumn("IVA");
+    modelo.addColumn("Stock");     
+    
+    for (Object[] fila : listaResultados) {
+        modelo.addRow(fila);
+    }
+   jTable1.setModel(modelo);
        
     } catch (SQLException ex) {
         JOptionPane.showMessageDialog(null, "Error en la búsqueda: " + ex.getMessage());
@@ -293,8 +325,15 @@ if (stockStr != null && !stockStr.trim().isEmpty()) {
             return;
         }
 
-        int id = (int) jTable1.getValueAt(fila, 0);
-
+    int id = (int) jTable1.getValueAt(fila, 0);
+     for (Producto p : listaProductos) {
+    if (p.getId() == id) {
+        p.setStock(nuevoStock);
+        colaStock.add(p); 
+        break;
+    }
+}
+  
         Connection con = Conexion.conectar();
         PreparedStatement ps = con.prepareStatement("UPDATE producto SET stock = ? WHERE id = ?");
         ps.setInt(1, nuevoStock);
@@ -360,17 +399,29 @@ private void cargarProductosEnTabla() {
         Connection con = Conexion.conectar();
         Statement st = con.createStatement();
         ResultSet rs = st.executeQuery("SELECT * FROM producto");
-
+        
+        listaProductos.clear();
         while (rs.next()) {
-            modelo.addRow(new Object[]{
+              Producto p = new Producto(
                 rs.getInt("id"),
                 rs.getString("nombre"),
                 rs.getString("descripcion"),
                 rs.getDouble("precioVenta"),
                 rs.getDouble("precioCompra"),
-                rs.getDouble("iva"),
+                rs.getFloat("iva"),
                 rs.getInt("stock")
-            });
+            );
+         listaProductos.add(p); 
+         modelo.addRow(new Object[]{
+        p.getId(),
+        p.getNombre(),
+        p.getDescripcion(),
+        p.getPrecioVenta(),
+        p.getPrecioCompra(),
+        p.getIva(),
+        p.getStock()
+    });
+
         }
 
         jTable1.setModel(modelo);
@@ -378,6 +429,7 @@ private void cargarProductosEnTabla() {
         JOptionPane.showMessageDialog(null, "Error al cargar productos: " + ex.getMessage());
     }
 }
+
 
 
 
