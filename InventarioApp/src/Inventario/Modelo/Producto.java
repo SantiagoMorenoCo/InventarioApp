@@ -4,16 +4,15 @@ public class Producto {
     private int id;
     private String nombre;
     private String descripcion;
-    private double precioVenta;
-    private float precioCompra;
+    private Double precioVenta;
+    private Double precioCompra;
     private float iva;
     private int stock;
 
     public Producto() {
-        // Constructor vacío
     }
 
-    public Producto(int id, String nombre, String descripcion, float precioVenta, float precioCompra, float iva, int stock) {
+    public Producto(int id, String nombre, String descripcion, Double precioVenta, Double precioCompra, float iva, int stock) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -23,7 +22,6 @@ public class Producto {
         this.stock = stock;
     }
 
-    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -48,21 +46,19 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public double getPrecioVenta() {
+    public Double getPrecioVenta() {
         return precioVenta;
     }
 
-    public void setPrecioVenta(double precioVenta) {
+    public void setPrecioVenta(Double precioVenta) {
         this.precioVenta = precioVenta;
     }
 
- 
-
-    public float getPrecioCompra() {
+    public Double getPrecioCompra() {
         return precioCompra;
     }
 
-    public void setPrecioCompra(float precioCompra) {
+    public void setPrecioCompra(Double precioCompra) {
         this.precioCompra = precioCompra;
     }
 
@@ -81,4 +77,6 @@ public class Producto {
     public void setStock(int stock) {
         this.stock = stock;
     }
+
+   
 }

@@ -121,6 +121,9 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="&#xa;"/>
+      </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>

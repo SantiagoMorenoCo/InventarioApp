@@ -8,11 +8,13 @@ import inventario.Modelo.Usuario;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class GestionarUsuario extends javax.swing.JInternalFrame {
+private ArrayList<Usuario> listaUsuarios = new ArrayList<>();
 
     public GestionarUsuario() {
         initComponents();
@@ -311,7 +313,6 @@ public class GestionarUsuario extends javax.swing.JInternalFrame {
             int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de eliminar al usuario con ID " + idUsuario + "?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
 
             if (confirmacion == JOptionPane.YES_OPTION) {
-                // Eliminar de la base de datos
                 if (UsuarioDAO.eliminarUsuario(idUsuario)) {
                     JOptionPane.showMessageDialog(null, "Usuario eliminado correctamente.");
                     cargarUsuarios(); // Recarga la tabla
@@ -378,16 +379,16 @@ public class GestionarUsuario extends javax.swing.JInternalFrame {
 
             txtCedula.setText(tablaUsuario.getValueAt(fila, 5).toString());
 
-            // Convertir texto a enum TipoIdentificacion
             String tipoDocTexto = tablaUsuario.getValueAt(fila, 6).toString();
             cmbTipoDocumento.setSelectedItem(TipoDeIdentificacion.valueOf(tipoDocTexto));
 
             txtUsuario.setText(tablaUsuario.getValueAt(fila, 7).toString());
     }//GEN-LAST:event_tablaUsuarioMouseClicked
-    }
+    }          
     public void cargarUsuarios() {
     DefaultTableModel modelo = (DefaultTableModel) tablaUsuario.getModel();
-    modelo.setRowCount(0); // limpia la tabla
+    modelo.setRowCount(0); 
+    listaUsuarios.clear();
 
     String sql = "SELECT * FROM usuario";
 

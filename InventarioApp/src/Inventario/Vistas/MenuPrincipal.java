@@ -38,6 +38,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         RealizarVent = new javax.swing.JMenuItem();
         Historic = new javax.swing.JMenuItem();
+        Meca = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -113,6 +115,20 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu3.add(Historic);
 
         jMenuBar1.add(jMenu3);
+
+        Meca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Inventario/Imagenes/product_16090175.png"))); // NOI18N
+        Meca.setText("Mercancia");
+        Meca.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+
+        jMenuItem2.setText("Productos");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        Meca.add(jMenuItem2);
+
+        jMenuBar1.add(Meca);
 
         setJMenuBar(jMenuBar1);
 
@@ -193,6 +209,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
         realizarVenta.setLocation(x, y);
     }//GEN-LAST:event_RealizarVentActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+     Productos productos = new Productos();
+        jDesktopPane_menu.add(productos);
+        productos.setVisible(true);
+        
+        Dimension desktopSize = jDesktopPane_menu.getSize();
+        Dimension frameSize = productos.getSize();
+        int x = (desktopSize.width - frameSize.width) / 2;
+        int y = (desktopSize.height - frameSize.height) / 2;
+        productos.setLocation(x, y);        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -232,6 +260,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem GestionInvent;
     private javax.swing.JMenuItem GestionUsuar;
     private javax.swing.JMenuItem Historic;
+    private javax.swing.JMenu Meca;
     private javax.swing.JMenuItem NuevoProduct;
     private javax.swing.JMenu NuevoUsuar;
     private javax.swing.JMenuItem RealizarVent;
@@ -239,5 +268,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     // End of variables declaration//GEN-END:variables
 }
